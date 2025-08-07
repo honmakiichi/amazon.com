@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>商品一覧</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<hr>
+	<nav>
+		<form action="/items" method="get">
+			<input type="text" name="keyword" placeholder="商品名">
+			<input type="number" name="maxPrice" placeholder="価格">円以下
+			<button>検索</button>
+		</form>
+		<a href="/items">全商品</a>
+		<a th:each="category:${categories}" th:href="@{/items(categoryId=${category.id})}" th:text="${category.name}"
+			style="margin-right:5px;"></a>
+		<a href="/cart" style="padding-left:10px;">カートを見る</a>
+	</nav>
+	<main>
+		<table>
+			<tr>
+				<th>No</th>
+				<th>商品名
+					<form method="get" action="/items">
+						<label for="sort">並び替え:</label>
+						<select name="sort" onchange="this.form.submit()">
+							<option value="">-- 選択 --</option>
+							<option value="priceAsc" th:selected="${sort == 'priceAsc'}">価格が安い順</option>
+							<option value="priceDesc" th:selected="${sort == 'priceDesc'}">価格が高い順</option>
+						</select>
+					</form>
+				</th>
+				<th>値段</th>
+				<th></th>
+			</tr>
+			<tr th:each="item:${items}">
+				<td th:text="${item.id}"></td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.price}"></td>
+				<td>
+					<form action="/cart/add" method="post">
+						<input type="hidden" name="itemId" th:value="${item.id}">
+						<button>カートに追加</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</main>
+	<hr>
+	<footer>
+		<p>&copy; ショッピングサイト</p>
+	</footer>
+</body>
+
+</html>

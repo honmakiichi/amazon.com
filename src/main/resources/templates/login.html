@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ログイン</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+	<header th:replace="headertop"></header>
+	<hr>
+	<h1>ログイン</h1>
+	<main>
+		<form action="/login" method="post">
+			<input type="text" name="email" placeholder="メールアドレス">
+			<br>
+			<div class="input-with-icon">
+				<input type="password" name="password" id="password" placeholder="パスワードを入力">
+			</div>
+			<br>
+			<button type="submit">ログイン</button>
+		</form>
+	</main>
+	<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+	<p>まだアカウントをお持ちではありませんか？ <a href="/add">新規登録</a></p>
+	<hr>
+	<footer>
+		<p>&copy; ショッピングサイト</p>
+	</footer>
+	<script>
+		function togglePasswordVisibility(id) {
+			const input = document.getElementById(id);
+			input.type = input.type === "password" ? "text" : "password";
+		}
+	</script>
+</body>
+
+</html>

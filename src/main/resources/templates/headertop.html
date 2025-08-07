@@ -1,0 +1,19 @@
+<header style="padding: 20px; border-bottom: 1px solid #ccc; position: relative;">
+	<div style="display: flex; justify-content: space-between; align-items: center;">
+
+		<!-- 左：サイト名 -->
+		<div>
+			<h1 style="margin: 0; font-size: 24px;">
+				<a href="/" style="text-decoration: none; color: inherit;">ショッピングサイト</a>
+			</h1>
+		</div>
+
+		<!-- 中央：日付 -->
+		<div style="position: absolute; left: 50%; transform: translateX(-50%);">
+			<p style="margin: 0; font-size: 16px;" th:text="${#temporals.format(currentDate, 'yyyy年MM月dd日')}"></p>
+		</div>
+
+		<!-- 右：空 -->
+		<div style="width: 200px;"></div> <!-- バランス用ダミースペース -->
+	</div>
+</header>

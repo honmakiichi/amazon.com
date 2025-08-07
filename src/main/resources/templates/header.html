@@ -1,0 +1,24 @@
+<header style="padding: 20px; border-bottom: 1px solid #ccc;">
+	<div style="display: flex; justify-content: space-between; align-items: center;">
+
+		<!-- 左：サイト名 -->
+		<div>
+			<h1 style="margin: 0; font-size: 24px;">
+				<a href="/items" style="text-decoration: none; color: inherit;">ショッピングサイト</a>
+			</h1>
+		</div>
+
+		<!-- 中央：日付 -->
+		<div>
+			<p style="margin: 0; font-size: 16px;" th:text="${#temporals.format(currentDate, 'yyyy年MM月dd日')}"></p>
+		</div>
+
+		<!-- 右：ユーザー情報 -->
+		<div style="text-align: right;">
+			<p style="margin: 0; font-size: 14px;">
+				<span th:text="${@account.name + ' さんがログイン中'}"></span>
+			</p>
+			<a href="/logout" style="font-size: 14px;">ログアウト</a>
+		</div>
+	</div>
+</header>

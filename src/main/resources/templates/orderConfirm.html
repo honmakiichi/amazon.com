@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Confirmation</title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+	<header th:replace="header"></header>
+	<hr>
+	<main>
+		<h3>下記の内容で注文を行いますか？</h3>
+		<h3>ご注文商品</h3>
+		<span th:replace="cartItem"></span>
+		<hr>
+		<h3>お客様情報</h3>
+		<form action="/order" method="post">
+			<table border="1">
+				<tr>
+					<th>名前</th>
+					<td th:text="${user.name}"></td>
+				</tr>
+				<tr>
+					<th>e-mail</th>
+					<td th:text="${user.email}"></td>
+				</tr>
+				<tr>
+					<th>住所</th>
+					<td>
+						<input type="text" name="address" required>
+					</td>
+				</tr>
+				<tr>
+					<th>カード番号</th>
+					<td>
+						<input type="password" name="cardNumber" required>
+					</td>
+				</tr>
+				<tr>
+					<th>セキュリティコード</th>
+					<td>
+						<input type="password" name="securityCode" required>
+					</td>
+				</tr>
+				<tr>
+					<th>カード期限</th>
+					<td>
+						<input type="date" name="cardLimit" required>
+					</td>
+				</tr>
+			</table>
+			<br>
+			<button>この内容で注文</button>
+		</form>
+
+	</main>
+	<hr>
+	<footer>
+		<p>&copy; ショッピングサイト</p>
+	</footer>
+</body>
+
+</html>
