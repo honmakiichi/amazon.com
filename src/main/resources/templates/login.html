@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
@@ -18,11 +18,10 @@
 			<div class="input-with-icon">
 				<input type="password" name="password" id="password" placeholder="パスワードを入力">
 			</div>
-			<br>
+			<p th:if="${error}" th:text="${error}" style="color:red;"></p>
 			<button type="submit">ログイン</button>
 		</form>
 	</main>
-	<p th:if="${error}" th:text="${error}" style="color:red;"></p>
 	<p>まだアカウントをお持ちではありませんか？ <a href="/add">新規登録</a></p>
 	<hr>
 	<footer>

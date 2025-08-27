@@ -8,7 +8,7 @@ INSERT INTO items(category_id, name, price) VALUES(1, 'MOS Excel 365 対策テ�
 
 INSERT INTO items(category_id, name, price) VALUES(2, 'ハリー・ポッター', 13200);
 INSERT INTO items(category_id, name, price) VALUES(2, 'マトリックス', 12864);
-INSERT INTO items(category_id, name, price) VALUES(2, 'Space Wars 3', 1800);
+INSERT INTO items(category_id, name, price) VALUES(2, 'スターウォーズ', 18150);
 
 INSERT INTO items(category_id, name, price) VALUES(3, 'PERSONA 3 RELOAD', 9680);
 INSERT INTO items(category_id, name, price) VALUES(3, 'BIOHAZARD RE:4', 4990);

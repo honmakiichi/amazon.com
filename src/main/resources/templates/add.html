@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>ユーザー新規登録</title>
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
+<meta charset="UTF-8">
+<title>ユーザー新規登録</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
@@ -13,33 +13,48 @@
 	<h1>ユーザー新規登録</h1>
 	<main>
 		<form action="/add" method="post">
-			<!-- メールアドレス（デフォルト） -->
-			<input type="text" name="email" placeholder="メールアドレス"><br>
-			<!-- 名前（デフォルト） -->
-			<input type="text" name="name" placeholder="名前"><br>
-			<!-- パスワード（デフォルト＋目） -->
+			<input type="text" name="email" placeholder="メールアドレス"> <br>
+			<input type="text" name="name" placeholder="名前"> <br>
 			<div class="input-with-icon">
-				<input type="password" name="password" id="password" placeholder="パスワードを入力"
-					oninput="checkPasswordStrength(); checkPasswordMatch()">
+				<input type="password" name="password" id="password"
+					placeholder="パスワードを入力"
+					oninput="checkPasswordLength(); checkPasswordStrength(); checkPasswordMatch()">
 			</div>
+			<p id="pw-length-message" style="color: red;"></p>
 			<div id="password-strength-message"></div>
-			<!-- 確認用パスワード（デフォルト＋目） -->
+
 			<div class="input-with-icon">
-				<input type="password" name="confirmpassword" id="confirmpassword" placeholder="パスワード（確認用）"
-					oninput="checkPasswordMatch()">
+				<input type="password" name="confirmpassword" id="confirmpassword"
+					placeholder="パスワード（確認用）" oninput="checkPasswordMatch()">
 			</div>
-			<p id="pw-match-message" style="color:red;"></p>
-			<br>
+			<p id="pw-match-message" style="color: red;"></p>
+			<p th:each="error:${errors}" th:text="${error}" style="color: red;"></p>
 			<button type="submit">新規登録</button>
 		</form>
 	</main>
-	<p th:if="${error}" th:text="${error}" style="color:red;"></p>
-	<p>既にアカウントをお持ちですか？ <a href="/login">ログイン</a></p>
+
+	<p>
+		既にアカウントをお持ちですか？ <a href="/login">ログイン</a>
+	</p>
 	<hr>
 	<footer>
 		<p>&copy; ショッピングサイト</p>
 	</footer>
+
 	<script>
+		const MIN = 6;
+		const MAX = 64;
+
+		function checkPasswordLength() {
+			const pw = document.getElementById('password').value;
+			const msg = document.getElementById('pw-length-message');
+			if (pw.length <= 5 || pw.length >= (MAX + 1)) {
+				msg.textContent = `パスワードは${MIN}文字以上${MAX}文字以下で入力してください`;
+			} else {
+				msg.textContent = "";
+			}
+		}
+
 		function checkPasswordStrength() {
 			const password = document.getElementById('password').value;
 			const message = document.getElementById('password-strength-message');
@@ -67,6 +82,7 @@
 					break;
 			}
 		}
+
 		function checkPasswordMatch(event) {
 			const pw1 = document.getElementById("password").value;
 			const pw2 = document.getElementById("confirmpassword").value;
@@ -75,11 +91,12 @@
 			if (pw1 !== pw2) {
 				matchMsg.textContent = "⚠️ パスワードが一致していません";
 				matchMsg.style.color = "red";
-				event.preventDefault(); // 送信阻止
+				if (event) event.preventDefault();
 			} else {
 				matchMsg.textContent = "";
 			}
 		}
+
 		function togglePasswordVisibility(id) {
 			const input = document.getElementById(id);
 			const currentType = input.getAttribute("type");

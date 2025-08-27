@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>注文した商品</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<hr>
+	<main>
+		<table>
+			<tr>
+				<th>商品名</th>
+				<th>値段</th>
+				<th>個数</th>
+				<th>合計金額</th>
+			</tr>
+			<tr th:each="d : ${items}">
+				<td th:text="${d.item != null ? d.item.name : '（商品不明）'}"></td>
+				<td
+					th:text="${d.item != null && d.item.price != null ? d.item.price : 0}"></td>
+				<td th:text="${d.quantity != null ? d.quantity : 0}"></td>
+				<td
+					th:text="${
+        (d.item != null && d.item.price != null ? d.item.price : 0)
+        * (d.quantity != null ? d.quantity : 0)
+      }"></td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align: right;">合計</td>
+				<td th:text="${grandTotal}"></td>
+			</tr>
+
+		</table>
+		<form action="/history">
+			<button>注文履歴に戻る</button>
+		</form>
+	</main>
+	<hr>
+	<footer>
+		<p>&copy; タスク管理アプリ</p>
+	</footer>
+</body>
+</html>

@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ public class UserController {
 	@Autowired
 	Account account;
 
+	private static final int PASSWORD_MIN = 6;
+	private static final int PASSWORD_MAX = 64;
+
 	@GetMapping({ "/", "/logout" })
 	public String index(HttpSession session) {
 		session.invalidate();
@@ -40,12 +46,12 @@ public class UserController {
 		User user = userRepository.findByEmail(email);
 
 		if (user == null) {
-			model.addAttribute("error", "メールアドレスが間違っています");
+			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
 			return "login";
 		}
 
 		if (!user.getPassword().equals(password)) {
-			model.addAttribute("error", "パスワードが間違っています");
+			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
 			return "login";
 		}
 
@@ -67,13 +73,35 @@ public class UserController {
 			@RequestParam String password,
 			@RequestParam String confirmpassword,
 			Model model) {
-		if (email.isBlank() || name.isBlank() || password.isBlank() || confirmpassword.isBlank()) {
-			model.addAttribute("error", "すべての項目を入力してください");
-			return "add";
+
+		List<String> errors = new ArrayList<>();
+
+		if (email == null || email.isBlank()) {
+			errors.add("メールアドレスを入力してください");
+		}
+		if (name == null || name.isBlank()) {
+			errors.add("名前を入力してください");
+		}
+		if (password == null || password.isBlank()) {
+			errors.add("パスワードを入力してください");
+		}
+		if (confirmpassword == null || confirmpassword.isBlank()) {
+			errors.add("確認用パスワードを入力してください");
 		}
 
-		if (!password.equals(confirmpassword)) {
-			model.addAttribute("error", "パスワードが一致しません");
+		if (password != null && !password.isBlank()) {
+			int len = password.length();
+			if (len < PASSWORD_MIN || len > PASSWORD_MAX) {
+				errors.add("パスワードは6文字以上64文字以下で入力してください");
+			}
+		}
+
+		if (password != null && confirmpassword != null && !password.equals(confirmpassword)) {
+			errors.add("パスワードが一致していません");
+		}
+
+		if (!errors.isEmpty()) {
+			model.addAttribute("errors", errors);
 			return "add";
 		}
 

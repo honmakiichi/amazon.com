@@ -8,12 +8,12 @@ import com.example.demo.entity.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
-	List<Item> findByNameContainingAndPriceLessThanEqual(String keyword, Integer maxPrice);
-
-	List<Item> findByNameContaining(String keyword);
-
 	List<Item> findByPriceLessThanEqual(Integer maxPrice);
 
 	List<Item> findByCategoryId(Integer categoryId);
+
+	List<Item> findByNameContainingIgnoreCaseAndPriceLessThanEqual(String keyword, Integer maxPrice);
+
+	List<Item> findByNameContainingIgnoreCase(String keyword);
 
 }

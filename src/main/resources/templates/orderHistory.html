@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>注文履歴</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+	<header th:replace="header"></header>
+	<hr>
+	<main>
+		<table>
+			<tr>
+				<th>注文番号</th>
+				<th>注文日</th>
+				<th>住所</th>
+				<th>合計金額</th>
+				<th></th>
+			</tr>
+			<tr th:each="history:${history}">
+				<td><a th:href="@{/history/{orderId}(orderId=${history.id})}"
+					th:text="${history.id}"></a></td>
+				<td th:text="${history.orderedOn}"></td>
+				<td th:text="${history.address}"></td>
+				<td th:text="${history.totalPrice}"></td>
+				<td>
+					<form th:action="@{/history/{id}/delete(id=${history.id})}">
+						<button>削除</button>
+					</form>
+				</td>
+			</tr>
+		</table>
+		<form action="/items">
+			<button>商品一覧に戻る</button>
+		</form>
+	</main>
+	<hr>
+	<footer>
+		<p>&copy; ショッピングサイト</p>
+	</footer>
+</body>
+</html>

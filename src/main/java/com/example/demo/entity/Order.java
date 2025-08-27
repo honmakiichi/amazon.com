@@ -53,4 +53,16 @@ public class Order {
 	public Integer getId() {
 		return id;
 	}
+
+	public LocalDate getOrderedOn() {
+		return orderedOn;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public Integer getTotalPrice() {
+		return totalPrice;
+	}
 }

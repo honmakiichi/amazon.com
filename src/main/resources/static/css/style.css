@@ -60,3 +60,10 @@ button {
 button:hover {
 	background-color: #f1b2b2;
 }
+
+/* style.css に追加 */
+#pw-length-message,
+#password-strength-message { margin: 4px 0 0; }
+
+#pw-length-message:empty,
+#password-strength-message:empty { display: none; }

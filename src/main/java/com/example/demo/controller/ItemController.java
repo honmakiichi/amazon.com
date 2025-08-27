@@ -34,9 +34,9 @@ public class ItemController {
 
 		List<Item> itemList = null;
 		if (keyword.length() > 0 && maxPrice != null) {
-			itemList = itemRepository.findByNameContainingAndPriceLessThanEqual(keyword, maxPrice);
+			itemList = itemRepository.findByNameContainingIgnoreCaseAndPriceLessThanEqual(keyword, maxPrice);
 		} else if (keyword.length() > 0) {
-			itemList = itemRepository.findByNameContaining(keyword);
+			itemList = itemRepository.findByNameContainingIgnoreCase(keyword);
 		} else if (maxPrice != null) {
 			itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
 		} else if (categoryId != null) {
