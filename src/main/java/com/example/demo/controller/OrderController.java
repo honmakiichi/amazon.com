@@ -46,6 +46,7 @@ public class OrderController {
 	@GetMapping("/order")
 	public String index(Model model) {
 		User user = userRepository.findById(account.getId()).get();
+
 		model.addAttribute("user", user);
 
 		return "orderConfirm";
@@ -69,6 +70,7 @@ public class OrderController {
 		orderRepository.save(order);
 
 		List<Item> itemList = cart.getItems();
+
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		for (Item item : itemList) {
 			orderDetails.add(
@@ -77,6 +79,7 @@ public class OrderController {
 							item.getId(),
 							item.getQuantity()));
 		}
+
 		orderDetailRepository.saveAll(orderDetails);
 
 		cart.clear();
@@ -127,7 +130,7 @@ public class OrderController {
 		model.addAttribute("orderId", orderId);
 		model.addAttribute("items", items);
 		model.addAttribute("grandTotal", grandTotal);
+
 		return "orderItems";
 	}
-
 }

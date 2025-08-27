@@ -30,6 +30,7 @@ public class ItemController {
 			@RequestParam(value = "sort", required = false) String sort,
 			Model model) {
 		List<Category> categoryList = categoryRepository.findAll();
+
 		model.addAttribute("categories", categoryList);
 
 		List<Item> itemList = null;
@@ -44,7 +45,6 @@ public class ItemController {
 		} else {
 			itemList = itemRepository.findAll();
 		}
-
 		if ("priceAsc".equals(sort)) {
 			itemList.sort(Comparator.comparing(Item::getPrice));
 		} else if ("priceDesc".equals(sort)) {

@@ -44,12 +44,10 @@ public class UserController {
 			@RequestParam String password,
 			Model model) {
 		User user = userRepository.findByEmail(email);
-
 		if (user == null) {
 			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
 			return "login";
 		}
-
 		if (!user.getPassword().equals(password)) {
 			model.addAttribute("error", "メールアドレスまたはパスワードが間違っています");
 			return "login";
@@ -75,7 +73,6 @@ public class UserController {
 			Model model) {
 
 		List<String> errors = new ArrayList<>();
-
 		if (email == null || email.isBlank()) {
 			errors.add("メールアドレスを入力してください");
 		}
@@ -88,18 +85,15 @@ public class UserController {
 		if (confirmpassword == null || confirmpassword.isBlank()) {
 			errors.add("確認用パスワードを入力してください");
 		}
-
 		if (password != null && !password.isBlank()) {
 			int len = password.length();
 			if (len < PASSWORD_MIN || len > PASSWORD_MAX) {
 				errors.add("パスワードは6文字以上64文字以下で入力してください");
 			}
 		}
-
 		if (password != null && confirmpassword != null && !password.equals(confirmpassword)) {
 			errors.add("パスワードが一致していません");
 		}
-
 		if (!errors.isEmpty()) {
 			model.addAttribute("errors", errors);
 			return "add";
