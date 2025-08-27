@@ -13,6 +13,9 @@
 		<div>
 			<p style="margin: 0; font-size: 16px;"
 				th:text="${#temporals.format(currentDate, 'yyyy年MM月dd日')}"></p>
+			<form action="/history">
+				<button>注文履歴</button>
+			</form>
 		</div>
 
 		<!-- 右：ユーザー情報 -->
@@ -22,8 +25,5 @@
 			</p>
 			<a href="/logout" style="font-size: 14px;">ログアウト</a>
 		</div>
-		<form action="/history">
-			<button>注文履歴</button>
-		</form>
 	</div>
 </header>
